@@ -8,7 +8,7 @@ public interface IUserService {
 
     public UserDTO createUser(UserDTO userDTO);
 
-    public UserEntity updateUser(Long id, UserDTO userDTO);
+    public UserDTO updateUser(Long id, UserDTO userDTO);
 
     public UserDataDTO getUser(Long id);
 

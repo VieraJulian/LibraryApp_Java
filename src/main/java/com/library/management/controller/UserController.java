@@ -39,4 +39,16 @@ public class UserController {
         }
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        try {
+            UserDTO updatedUser = userServ.updateUser(id, userDTO);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
+
 }

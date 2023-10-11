@@ -53,8 +53,35 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserEntity updateUser(Long id, UserDTO userDTO) {
-        return null;
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        UserEntity userFound = userRepo.findById(id).orElse(null);
+        Role role;
+
+        if (userFound == null) {
+            return null;
+        }
+
+        try {
+            role = roleRepo.findByName(ERole.valueOf(userDTO.getRole().toUpperCase())).orElseThrow();
+        } catch (Exception e) {
+            role = roleRepo.findByName(ERole.USER).orElse(null);
+        }
+
+        userFound.setUsername(userDTO.getUsername());
+        userFound.setPassword(userDTO.getPassword());
+        userFound.setEmail(userDTO.getEmail());
+        userFound.setPhoneNumber(userDTO.getPhoneNumber());
+        userFound.setRole(role);
+
+        userRepo.save(userFound);
+
+        return UserDTO.builder()
+                .username(userFound.getUsername())
+                .password(userFound.getPassword())
+                .email(userFound.getEmail())
+                .phoneNumber(userFound.getPhoneNumber())
+                .role(userFound.getRole().getName().toString())
+                .build();
     }
 
     @Override
