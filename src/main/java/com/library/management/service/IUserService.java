@@ -1,6 +1,7 @@
 package com.library.management.service;
 
 import com.library.management.dto.UserDTO;
+import com.library.management.dto.UserDataDTO;
 import com.library.management.model.UserEntity;
 
 public interface IUserService {
@@ -9,7 +10,7 @@ public interface IUserService {
 
     public UserEntity updateUser(Long id, UserDTO userDTO);
 
-    public UserEntity getUser(Long id);
+    public UserDataDTO getUser(Long id);
 
     public void deleteUser(Long id);
 }

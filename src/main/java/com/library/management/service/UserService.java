@@ -1,6 +1,7 @@
 package com.library.management.service;
 
 import com.library.management.dto.UserDTO;
+import com.library.management.dto.UserDataDTO;
 import com.library.management.model.ERole;
 import com.library.management.model.Role;
 import com.library.management.model.UserEntity;
@@ -57,8 +58,21 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserEntity getUser(Long id) {
-        return null;
+    public UserDataDTO getUser(Long id) {
+        UserEntity userFound = userRepo.findById(id).orElse(null);
+
+        if (userFound == null) {
+            return null;
+        }
+
+        return UserDataDTO.builder()
+                .username(userFound.getUsername())
+                .email(userFound.getEmail())
+                .password(userFound.getPassword())
+                .phoneNumber(userFound.getPhoneNumber())
+                .role(userFound.getRole().getName().toString())
+                .loans(userFound.getLoans())
+                .build();
     }
 
     @Override
