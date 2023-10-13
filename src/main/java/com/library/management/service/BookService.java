@@ -87,6 +87,6 @@ public class BookService implements IBookService {
 
     @Override
     public void deleteBook(Long id) {
-
+        bookRepo.deleteById(id);
     }
 }
