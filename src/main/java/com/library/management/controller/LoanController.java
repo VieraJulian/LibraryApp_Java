@@ -15,6 +15,17 @@ public class LoanController {
     @Autowired
     private ILoanService loanServ;
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<LoanDataDTO> getLoan(@PathVariable Long id){
+        try {
+            LoanDataDTO loan = loanServ.getLoan(id);
+            return new ResponseEntity<>(loan, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @PostMapping("/create")
     public ResponseEntity<LoanDataDTO> createLoan(@RequestBody LoanDTO loanDTO){
         try {

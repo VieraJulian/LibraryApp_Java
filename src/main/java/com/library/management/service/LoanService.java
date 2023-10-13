@@ -62,8 +62,24 @@ public class LoanService implements ILoanService {
     }
 
     @Override
-    public LoanDataDTO getLoan(Long id) {
-        return null;
+    public LoanDataDTO getLoan(Long id){
+        Loan loan = loanRepo.findById(id).orElse(null);
+
+        if(loan == null) {
+            return null;
+        }
+
+        return LoanDataDTO.builder()
+                .id_loan(loan.getId())
+                .book_id(loan.getBook().getId())
+                .title(loan.getBook().getTitle())
+                .user_id(loan.getUser().getId())
+                .username(loan.getUser().getUsername())
+                .email(loan.getUser().getEmail())
+                .phoneNumber(loan.getUser().getPhoneNumber())
+                .startDate(loan.getStartDate())
+                .endDate(loan.getEndDate())
+                .build();
     }
 
     @Override
