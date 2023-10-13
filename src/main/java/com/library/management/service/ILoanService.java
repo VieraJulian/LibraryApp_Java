@@ -8,7 +8,7 @@ public interface ILoanService {
 
     public LoanDataDTO createLoan(LoanDTO loanDTO);
 
-    public LoanDataDTO updateLoan(Long id, Loan loan);
+    public LoanDataDTO updateLoan(Long id, LoanDTO loanDTO);
 
     public LoanDataDTO getLoan(Long id);
 

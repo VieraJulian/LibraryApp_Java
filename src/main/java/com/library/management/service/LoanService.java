@@ -57,8 +57,35 @@ public class LoanService implements ILoanService {
     }
 
     @Override
-    public LoanDataDTO updateLoan(Long id, Loan loan) {
-        return null;
+    public LoanDataDTO updateLoan(Long id, LoanDTO loanDTO) {
+        Loan loanFound = loanRepo.findById(id).orElse(null);
+
+        if(loanFound == null) {
+            return null;
+        }
+
+        Book book = bookRepo.findById(loanDTO.getBook_id()).orElse(null);
+        UserEntity user = userRepo.findById(loanDTO.getUser_id()).orElse(null);
+        LocalDate endDate = loanDTO.getStartDate().plusMonths(1);
+
+        loanFound.setStartDate(loanDTO.getStartDate());
+        loanFound.setEndDate(endDate);
+        loanFound.setBook(book);
+        loanFound.setUser(user);
+
+        loanRepo.save(loanFound);
+
+        return LoanDataDTO.builder()
+                .id_loan(loanFound.getId())
+                .book_id(loanFound.getBook().getId())
+                .title(loanFound.getBook().getTitle())
+                .user_id(loanFound.getUser().getId())
+                .username(loanFound.getUser().getUsername())
+                .email(loanFound.getUser().getEmail())
+                .phoneNumber(loanFound.getUser().getPhoneNumber())
+                .startDate(loanFound.getStartDate())
+                .endDate(loanFound.getEndDate())
+                .build();
     }
 
     @Override

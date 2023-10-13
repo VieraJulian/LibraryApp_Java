@@ -38,6 +38,16 @@ public class LoanController {
         }
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<LoanDataDTO> updateLoan(@PathVariable Long id, @RequestBody LoanDTO loanDTO){
+        try {
+            LoanDataDTO loanUpdated = loanServ.updateLoan(id, loanDTO);
+            return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteLoan(@PathVariable Long id){
         try {
