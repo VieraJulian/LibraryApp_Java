@@ -1,18 +1,15 @@
 package com.library.management.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "books")
 public class Book {
 
@@ -21,13 +18,14 @@ public class Book {
     private Long id;
 
     private String title;
-    private LocalDate yearOfPublication;
+    private int yearOfPublication;
     private String author;
 
     @OneToOne(mappedBy = "book")
     private Loan loan;
 
     @Lob
-    private Byte[] image;
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private byte[] image;
 
 }
