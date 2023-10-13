@@ -11,7 +11,7 @@ public interface IBookService {
 
     public BookDTO updateBook(Long id, BookDTO bookDTO);
 
-    public BookDTO getBook(Long id);
+    public BookResponseDTO getBook(Long id);
 
     public void deleteBook(Long id);
 }

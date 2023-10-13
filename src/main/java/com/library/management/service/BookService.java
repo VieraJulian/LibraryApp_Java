@@ -46,8 +46,21 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public BookDTO getBook(Long id) {
-        return null;
+    public BookResponseDTO getBook(Long id) {
+        Book bookFound = bookRepo.findById(id).orElse(null);
+
+        if (bookFound == null) {
+            return null;
+        }
+
+        String image = Base64.getEncoder().encodeToString(bookFound.getImage());
+
+        return BookResponseDTO.builder()
+                .title(bookFound.getTitle())
+                .author(bookFound.getAuthor())
+                .yearOfPublication(bookFound.getYearOfPublication())
+                .image(image)
+                .build();
     }
 
     @Override

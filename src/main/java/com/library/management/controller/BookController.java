@@ -15,6 +15,16 @@ public class BookController {
     @Autowired
     private IBookService bookServ;
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<BookResponseDTO> getBook(@PathVariable Long id) {
+        try {
+            BookResponseDTO book = bookServ.getBook(id);
+            return new ResponseEntity<>(book, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping(value = "/create", consumes = {"multipart/form-data"})
     public ResponseEntity<BookResponseDTO> createBook(@ModelAttribute BookDTO bookDTO) {
         try {
