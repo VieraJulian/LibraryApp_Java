@@ -9,7 +9,7 @@ public interface IBookService {
 
     public BookResponseDTO createBook(BookDTO bookDTO) throws IOException;
 
-    public BookDTO updateBook(Long id, BookDTO bookDTO);
+    public BookResponseDTO updateBook(Long id, BookDTO bookDTO) throws IOException;
 
     public BookResponseDTO getBook(Long id);
 

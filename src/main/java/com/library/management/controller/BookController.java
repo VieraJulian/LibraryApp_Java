@@ -25,11 +25,21 @@ public class BookController {
         }
     }
 
-    @PostMapping(value = "/create", consumes = {"multipart/form-data"})
+    @PostMapping("/create")
     public ResponseEntity<BookResponseDTO> createBook(@ModelAttribute BookDTO bookDTO) {
         try {
             BookResponseDTO newBook = bookServ.createBook(bookDTO);
             return new ResponseEntity<>(newBook, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<BookResponseDTO> updateBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
+        try {
+            BookResponseDTO updatedBook = bookServ.updateBook(id, bookDTO);
+            return new ResponseEntity<>(updatedBook, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
