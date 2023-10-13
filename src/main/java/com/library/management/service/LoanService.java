@@ -68,6 +68,6 @@ public class LoanService implements ILoanService {
 
     @Override
     public void deleteLoan(Long id) {
-
+        loanRepo.deleteById(id);
     }
 }
