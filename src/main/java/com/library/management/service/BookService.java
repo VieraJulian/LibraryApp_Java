@@ -33,6 +33,7 @@ public class BookService implements IBookService {
         String image = Base64.getEncoder().encodeToString(bytes);
 
         return BookResponseDTO.builder()
+                .id(book.getId())
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .yearOfPublication(book.getYearOfPublication())
@@ -60,6 +61,7 @@ public class BookService implements IBookService {
         String image = Base64.getEncoder().encodeToString(bytes);
 
         return BookResponseDTO.builder()
+                .id(bookFound.getId())
                .title(bookFound.getTitle())
                .author(bookFound.getAuthor())
                .yearOfPublication(bookFound.getYearOfPublication())
@@ -78,6 +80,7 @@ public class BookService implements IBookService {
         String image = Base64.getEncoder().encodeToString(bookFound.getImage());
 
         return BookResponseDTO.builder()
+                .id(bookFound.getId())
                 .title(bookFound.getTitle())
                 .author(bookFound.getAuthor())
                 .yearOfPublication(bookFound.getYearOfPublication())

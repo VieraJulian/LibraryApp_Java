@@ -12,10 +12,11 @@ import java.util.List;
 @Builder
 public class UserDataDTO {
 
+    private Long id;
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
     private String role;
-    private List<Loan> loans;
+    private List<UserLoanDataDTO> loans;
 }

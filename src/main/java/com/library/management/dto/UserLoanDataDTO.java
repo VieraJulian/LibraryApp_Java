@@ -1,4 +1,5 @@
 package com.library.management.dto;
+
 import lombok.*;
 
 import java.time.LocalDate;
@@ -8,16 +9,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LoanDataDTO {
+public class UserLoanDataDTO {
 
     private Long id_loan;
     private Long book_id;
-    private String title;
-    private Long user_id;
-    private String username;
-    private String email;
-    private String phoneNumber;
+    private String book_title;
     private LocalDate startDate;
     private LocalDate endDate;
-
 }

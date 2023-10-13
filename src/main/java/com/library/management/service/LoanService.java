@@ -44,8 +44,10 @@ public class LoanService implements ILoanService {
         loanRepo.save(loanNew);
 
         return LoanDataDTO.builder()
-                .id(loanNew.getId())
+                .id_loan(loanNew.getId())
+                .book_id(loanNew.getBook().getId())
                 .title(loanNew.getBook().getTitle())
+                .user_id(loanNew.getUser().getId())
                 .username(loanNew.getUser().getUsername())
                 .email(loanNew.getUser().getEmail())
                 .phoneNumber(loanNew.getUser().getPhoneNumber())
