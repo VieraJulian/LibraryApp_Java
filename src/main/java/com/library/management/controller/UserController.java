@@ -7,6 +7,7 @@ import com.library.management.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class UserController {
     private IUserService userServ;
 
     @GetMapping("/get/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<UserDataDTO> getUser(@PathVariable Long id) {
         try {
             UserDataDTO userFound = userServ.getUser(id);
@@ -40,6 +42,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         try {
             UserDTO updatedUser = userServ.updateUser(id, userDTO);
@@ -52,6 +55,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try {
             userServ.deleteUser(id);

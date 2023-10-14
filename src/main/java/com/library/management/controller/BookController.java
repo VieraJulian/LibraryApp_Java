@@ -6,6 +6,7 @@ import com.library.management.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class BookController {
     private IBookService bookServ;
 
     @GetMapping("/get/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<BookResponseDTO> getBook(@PathVariable Long id) {
         try {
             BookResponseDTO book = bookServ.getBook(id);
@@ -26,6 +28,7 @@ public class BookController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BookResponseDTO> createBook(@ModelAttribute BookDTO bookDTO) {
         try {
             BookResponseDTO newBook = bookServ.createBook(bookDTO);
@@ -36,6 +39,7 @@ public class BookController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BookResponseDTO> updateBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
         try {
             BookResponseDTO updatedBook = bookServ.updateBook(id, bookDTO);
@@ -46,6 +50,7 @@ public class BookController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteBook(@PathVariable Long id) {
         try {
             bookServ.deleteBook(id);

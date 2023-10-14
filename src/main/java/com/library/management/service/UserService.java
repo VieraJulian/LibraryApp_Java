@@ -9,6 +9,7 @@ import com.library.management.repository.ILoanRepository;
 import com.library.management.repository.IRoleRepository;
 import com.library.management.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class UserService implements IUserService {
     @Autowired
     private IBookRepository bookRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         Role role;
@@ -45,7 +49,7 @@ public class UserService implements IUserService {
 
         UserEntity newUser = UserEntity.builder()
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
                 .email(userDTO.getEmail())
                 .phoneNumber(userDTO.getPhoneNumber())
                 .role(role)
@@ -79,7 +83,7 @@ public class UserService implements IUserService {
         }
 
         userFound.setUsername(userDTO.getUsername());
-        userFound.setPassword(userDTO.getPassword());
+        userFound.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userFound.setEmail(userDTO.getEmail());
         userFound.setPhoneNumber(userDTO.getPhoneNumber());
         userFound.setRole(role);
